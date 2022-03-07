@@ -60,9 +60,11 @@ class LARS_Algorithm():
         beta = np.zeros((p+1,p))
         corr = np.zeros((p+1,p))
         
+        
         # initial cholesky decomposition of the gram matrix
         # since the active set is empty this is the empty matrix
         R = np.zeros((0,0))
+        
     
         # Looping through all Features/Predictors
         for k in range(p):
@@ -78,7 +80,6 @@ class LARS_Algorithm():
             print(f"Predictor with Highest Correlation in Inactive Set: x_{j_max+1}")
             C_hat = c_hat[j_max]
             print(f"Highest Correlation in Inactive Set: {round(C_hat,2)}")
-            
             # Add Feature/Predictor with Highest Absolute Correlation to Active Set: A = {j: |c^_j| = C^} --> (Hastie, 2003, p.7)
             R = self.cholinsert(R, X[:,j_max], X[:,active_set])
             active_set.append(j_max)
@@ -106,7 +107,7 @@ class LARS_Algorithm():
             w_A = A_A * G_A_inv @ one
             u_A = X_A @ w_A
             
-            """
+            
             # Find the Sign of the Current Correlations: s_j = sign{c^_j} for j∈A --> (Hastie, 2003, p.7)
             s = np.sign(c_hat[active_set])
             print(f"Signs of Correlations in Active Set (1=Positive, 0=Negative): {s}")
@@ -120,7 +121,6 @@ class LARS_Algorithm():
             # Equiangluar Vector: u_A = X_A * w_A with w_a = A_A * G_A^(-1) * 1_A --> (Hastie, 2003, p.7)
             w_A = A_A * G_A
             u_A = np.dot(X[:,active_set], w_A).reshape(-1)
-            """
 
             if k == p:
                 # Full Least Angle Solutions
