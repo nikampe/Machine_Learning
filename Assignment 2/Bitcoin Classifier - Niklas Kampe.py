@@ -54,6 +54,12 @@ def line_plot(data_train, data_test):
     plt.xlabel(f'Time', size = 12)
     plt.ylabel(f'Price', size = 12)
     plt.show()
+    
+def maximum(a):
+    if a >= 0:
+        return a
+    else:
+        return 0
 
 # Data Object
 class Data():
@@ -233,8 +239,8 @@ class Classifier():
         print(f"Final BTC Balance: {btc_balance}")
         print(f"Gross Return (in $): ${round(cash_balance - self.initial_cash_balance, 2)}")
         print(f"Net Return (in %): {round(((cash_balance / self.initial_cash_balance) - 1) * 100, 2)}%")
-        print(f"Net Return (in %) of Holding BTC over Testing Period: {round(((prices[-1] / prices[0]) - 1) * 100, 2)}%")
-        print(f"Excess Return (in %) against Holding BTC over Testing Period: {round(((cash_balance / self.initial_cash_balance) - 1) * 100, 2) - round(((prices[-1] / prices[0]) - 1) * 100, 2)}%")
+        print(f"Net Return (in %) of (Not) Holding BTC over Testing Period: {round(maximum(((prices[-1] / prices[0]) - 1) * 100), 2)}%")
+        print(f"Excess Return (in %) against (Not) Holding BTC over Testing Period: {round(((cash_balance / self.initial_cash_balance) - 1) * 100, 2) - round(maximum(((prices[-1] / prices[0]) - 1) * 100), 2)}%")
                 
 if __name__ == "__main__":
     y_raw = Data().data_asset()
