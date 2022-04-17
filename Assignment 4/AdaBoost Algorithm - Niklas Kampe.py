@@ -132,4 +132,5 @@ class AdaBoost():
         return y_pred
     
 if __name__ == '__main__':
-    AdaBoost().predict()
+    # AdaBoost().predict()
+    print(np.sqrt(np.log(500000)))
